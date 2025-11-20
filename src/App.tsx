@@ -51,9 +51,9 @@ function App() {
           <div className="aspect-video bg-black relative overflow-hidden">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/Rk7VBy1XcrI?modestbranding=1&rel=0"
+              src="https://player.vimeo.com/video/1138731362?autoplay=1&muted=0&controls=0&title=0&byline=0&portrait=0&loop=1"
               title="Vídeo de Vendas Barcellos Coins"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
             ></iframe>
             <div className="absolute top-4 left-4 bg-brand-green text-black px-4 py-2 rounded-lg flex items-center gap-2 animate-pulse shadow-lg">
