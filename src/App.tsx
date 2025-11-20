@@ -51,7 +51,7 @@ function App() {
           <div className="aspect-video bg-black relative overflow-hidden">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/Rk7VBy1XcrI?si=nw54VyuxIlhqgRo1&modestbranding=1&rel=0"
+              src="https://www.youtube.com/embed/Rk7VBy1XcrI?autoplay=1&mute=1&modestbranding=1&rel=0&fs=0&disablekb=1&iv_load_policy=3"
               title="Vídeo de Vendas Barcellos Coins"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
