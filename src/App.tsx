@@ -55,20 +55,11 @@ function App() {
           <div className="aspect-video bg-black relative overflow-hidden">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src={`https://player.vimeo.com/video/1138731362?autoplay=1&muted=${soundEnabled ? '0' : '1'}&controls=0&title=0&byline=0&portrait=0&loop=1`}
+              src={`https://player.vimeo.com/video/1138731362?autoplay=0&muted=0&controls=1&title=0&byline=0&portrait=0&loop=1`}
               title="Vídeo de Vendas Barcellos Coins"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
             ></iframe>
-            {!soundEnabled && (
-              <button
-                onClick={enableSound}
-                className="absolute top-4 left-4 bg-brand-green text-black px-6 py-3 rounded-lg flex items-center gap-2 animate-pulse shadow-lg hover:bg-brand-green-light transition-all cursor-pointer hover:scale-105"
-              >
-                <Volume2 className="w-5 h-5" />
-                <span className="font-bold text-sm">Ative o Som - Clique Aqui</span>
-              </button>
-            )}
           </div>
 
           <div className="p-4 border-t border-brand-green/30 bg-black/30">
