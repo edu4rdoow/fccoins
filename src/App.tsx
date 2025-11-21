@@ -33,14 +33,18 @@ function App() {
 
   useEffect(() => {
     const fetchCoinPrice = async () => {
-      const { data } = await supabase
-        .from('fc_coins_pricing')
-        .select('price')
-        .eq('is_active', true)
-        .maybeSingle();
+      try {
+        const { data, error } = await supabase
+          .from('fc_coins_pricing')
+          .select('price')
+          .eq('is_active', true)
+          .maybeSingle();
 
-      if (data) {
-        setCoinPrice(data.price);
+        if (data && !error) {
+          setCoinPrice(data.price);
+        }
+      } catch (error) {
+        console.error('Error fetching coin price:', error);
       }
     };
 
@@ -79,6 +83,39 @@ function App() {
     `Opa cheguei pelo site, quero comprar ${(selectedCoins * 1000).toLocaleString('pt-BR')} FC Coins.`
   );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  const trackConversion = async (eventName: string, value?: number) => {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', eventName, value ? { value, currency: 'BRL' } : {});
+    }
+
+    try {
+      const fbp = document.cookie.match(/_fbp=([^;]+)/)?.[1];
+      const fbc = document.cookie.match(/_fbc=([^;]+)/)?.[1];
+
+      await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/facebook-conversions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventName,
+          eventSourceUrl: window.location.href,
+          userAgent: navigator.userAgent,
+          clientIpAddress: '',
+          fbp,
+          fbc,
+        }),
+      });
+    } catch (error) {
+      console.error('Error tracking conversion:', error);
+    }
+  };
+
+  const handleWhatsAppClick = (type: string) => {
+    trackConversion('InitiateCheckout');
+    trackConversion('Lead');
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -122,6 +159,7 @@ function App() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => handleWhatsAppClick('video')}
               className="flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-light text-black px-4 py-2 rounded-lg text-sm font-bold transition-all"
             >
               <MessageCircle className="w-4 h-4" />
@@ -259,6 +297,7 @@ function App() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => handleWhatsAppClick('fc-coins')}
                 className="inline-flex items-center gap-3 bg-black text-yellow-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-900 transition-all hover:scale-105 shadow-xl border border-yellow-500/50 hover:border-yellow-500"
               >
                 <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -327,6 +366,7 @@ function App() {
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Di María')}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppClick('dme-di-maria')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -364,6 +404,7 @@ function App() {
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Hero - Córdoba, Hamsik ou Abedi Pelé')}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppClick('dme-hero')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -401,6 +442,7 @@ function App() {
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Kylian Mbappé')}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppClick('dme-mbappe')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -438,6 +480,7 @@ function App() {
                   href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Melhoria Ídolo Max.89')}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppClick('dme-idolo')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -542,6 +585,7 @@ function App() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => handleWhatsAppClick('footer')}
                 className="inline-flex items-center gap-3 bg-black text-brand-green px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-900 transition-all hover:scale-105 shadow-xl border border-brand-green/50 hover:border-brand-green"
               >
                 <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />

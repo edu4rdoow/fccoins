@@ -8,6 +8,39 @@
     <meta property="og:image" content="https://bolt.new/static/og_default.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+
+    <script type="module">
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      (async () => {
+        try {
+          const response = await fetch('https://cojjtybxpxqstmohyzqr.supabase.co/rest/v1/facebook_config?select=pixel_ids', {
+            headers: {
+              'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvamp0eWJ4cHhxc3Rtb2h5enFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODQ4NzQsImV4cCI6MjA3OTE2MDg3NH0.c4pWc4ZW1zf45KUerCO_fLQzDcjfyx-4qHbeTOsUlRc',
+              'Content-Type': 'application/json'
+            }
+          });
+          const data = await response.json();
+          if (data && data[0] && data[0].pixel_ids && data[0].pixel_ids.length > 0) {
+            data[0].pixel_ids.forEach(pixelId => {
+              if (pixelId) {
+                fbq('init', pixelId);
+              }
+            });
+            fbq('track', 'PageView');
+          }
+        } catch (error) {
+          console.error('Error loading Facebook Pixel:', error);
+        }
+      })();
+    </script>
 </head>
   <body>
     <div id="root"></div>
