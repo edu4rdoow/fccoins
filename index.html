@@ -19,6 +19,21 @@
       gtag('config', 'AW-614729828');
     </script>
 
+    <script>
+      window.gtag_report_conversion = function(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-614729828/yoTbCKOF_8QbEOSQkKUC',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
+
     <script type="module">
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
