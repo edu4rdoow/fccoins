@@ -101,6 +101,10 @@ function App() {
   const handleWhatsAppClick = (type: string) => {
     trackConversion('InitiateCheckout');
     trackConversion('Lead');
+
+    if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+      (window as any).gtag_report_conversion(undefined);
+    }
   };
 
   return (
