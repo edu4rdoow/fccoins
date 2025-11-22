@@ -6,7 +6,6 @@ import { supabase } from './lib/supabase';
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [coinPrice, setCoinPrice] = useState(44.90);
-  const [timeLeft, setTimeLeft] = useState(30 * 60);
   const [selectedCoins, setSelectedCoins] = useState(300);
 
   const oldPrice = 59.90;
@@ -51,19 +50,6 @@ function App() {
     fetchCoinPrice();
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
 
   const calculatePrice = (coins: number) => {
     return ((coins / 100000) * coinPrice).toFixed(2);
@@ -120,18 +106,10 @@ function App() {
   return (
     <div className="min-h-screen bg-black">
       <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
-        <div className="mb-6 bg-gradient-to-r from-red-600 via-black to-red-600 border-2 border-red-500 rounded-xl p-4 shadow-2xl shadow-red-500/50 animate-pulse">
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-4xl font-black text-white mb-1 tracking-wider">
-              🔥 BLACK FRIDAY 🔥
-            </h2>
-            <div className="flex items-center justify-center gap-2">
-              <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
-              <p className="text-base sm:text-lg font-black text-yellow-400">
-                Oferta disponível por: {formatTime(timeLeft)}
-              </p>
-            </div>
-          </div>
+        <div className="mb-6 bg-brand-green rounded-lg py-2 px-4">
+          <p className="text-center text-sm sm:text-base font-semibold text-black tracking-wide">
+            O MAIS RÁPIDO E SEGURO DO BRASIL
+          </p>
         </div>
 
         <header className="text-center mb-8 sm:mb-12">
