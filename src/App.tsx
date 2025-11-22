@@ -147,7 +147,7 @@ function App() {
           <div className="aspect-video bg-black relative overflow-hidden">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src={`https://player.vimeo.com/video/1138731362?autoplay=0&muted=0&controls=1&title=0&byline=0&portrait=0&loop=1`}
+              src={`https://player.vimeo.com/video/1139519218?autoplay=0&muted=0&controls=1&title=0&byline=0&portrait=0&loop=1`}
               title="Vídeo de Vendas Barcellos Coins"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
@@ -335,45 +335,7 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-              <div className="bg-gradient-to-br from-gray-900/80 to-black/90 rounded-xl p-2 sm:p-4 border-2 border-purple-400/30 hover:border-cyan-400/60 transition-all hover:shadow-lg hover:shadow-cyan-500/20 group">
-                <div className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-2 sm:mb-3 flex items-center justify-center border border-gray-700 group-hover:border-cyan-500/50 transition-all overflow-hidden">
-                  <img
-                    src="/card.png"
-                    alt="Di María"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="mb-2 sm:mb-3">
-                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Di María</h3>
-                  <div className="text-center mb-1 sm:mb-2">
-                    <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
-                        <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
-                      </div>
-                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">79.000</p>
-                    </div>
-                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(79000)}</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    <span className="text-red-400 font-bold text-[10px] sm:text-sm">19 horas</span>
-                  </div>
-                </div>
-
-                <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Di María')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => handleWhatsAppClick('dme-di-maria')}
-                  className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
-                >
-                  <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
-                  Escolher
-                </a>
-              </div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
               <div className="bg-gradient-to-br from-gray-900/80 to-black/90 rounded-xl p-2 sm:p-4 border-2 border-purple-400/30 hover:border-cyan-400/60 transition-all hover:shadow-lg hover:shadow-cyan-500/20 group">
                 <div className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-2 sm:mb-3 flex items-center justify-center border border-gray-700 group-hover:border-cyan-500/50 transition-all overflow-hidden">
                   <img
@@ -385,7 +347,7 @@ function App() {
 
                 <div className="mb-2 sm:mb-3">
                   <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Hero - Córdoba, Hamsik ou Abedi Pelé</h3>
-                  <div className="text-center mb-1 sm:mb-2">
+                  <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
@@ -393,10 +355,6 @@ function App() {
                       <p className="text-yellow-400 font-semibold text-xs sm:text-sm">279.000</p>
                     </div>
                     <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(279000)}</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    <span className="text-red-400 font-bold text-[10px] sm:text-sm">14 dias</span>
                   </div>
                 </div>
 
@@ -423,7 +381,7 @@ function App() {
 
                 <div className="mb-2 sm:mb-3">
                   <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Kylian Mbappé</h3>
-                  <div className="text-center mb-1 sm:mb-2">
+                  <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
@@ -431,10 +389,6 @@ function App() {
                       <p className="text-yellow-400 font-semibold text-xs sm:text-sm">3.700.000</p>
                     </div>
                     <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(3700000)}</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    <span className="text-red-400 font-bold text-[10px] sm:text-sm">8 dias</span>
                   </div>
                 </div>
 
@@ -461,7 +415,7 @@ function App() {
 
                 <div className="mb-2 sm:mb-3">
                   <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Melhoria Ídolo Max.89</h3>
-                  <div className="text-center mb-1 sm:mb-2">
+                  <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
@@ -469,10 +423,6 @@ function App() {
                       <p className="text-yellow-400 font-semibold text-xs sm:text-sm">214.000</p>
                     </div>
                     <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(214000)}</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    <span className="text-red-400 font-bold text-[10px] sm:text-sm">7 dias</span>
                   </div>
                 </div>
 
