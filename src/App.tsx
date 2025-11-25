@@ -102,17 +102,8 @@ function App() {
     trackConversion('InitiateCheckout');
     trackConversion('Lead');
 
-    console.log('Tentando chamar gtag_report_conversion...');
-    console.log('gtag disponível?', typeof (window as any).gtag);
-    console.log('gtag_report_conversion disponível?', typeof (window as any).gtag_report_conversion);
-
-    if (typeof window !== 'undefined' && typeof (window as any).gtag !== 'undefined') {
-      console.log('Chamando conversão do Google Ads...');
-      (window as any).gtag('event', 'conversion', {
-        'send_to': 'AW-614729828/yoTbCKOF_8QbEOSQkKUC'
-      });
-    } else {
-      console.error('gtag não está disponível!');
+    if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+      (window as any).gtag_report_conversion(undefined);
     }
   };
 
