@@ -5,8 +5,11 @@ import { supabase } from './lib/supabase';
 
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [coinPrice, setCoinPrice] = useState(44.90);
+  const [coinPrice, setCoinPrice] = useState(42.90);
   const [selectedCoins, setSelectedCoins] = useState(300);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [couponError, setCouponError] = useState('');
 
   const oldPrice = 59.90;
   const minCoins = 50;
@@ -65,8 +68,18 @@ function App() {
 
   const whatsappNumber = '5553999286468';
 
+  const applyCoupon = () => {
+    if (couponCode.toUpperCase() === 'BLACK10') {
+      setCouponApplied(true);
+      setCouponError('');
+    } else {
+      setCouponError('Cupom inválido');
+      setCouponApplied(false);
+    }
+  };
+
   const whatsappMessage = encodeURIComponent(
-    `Opa cheguei pelo site, quero comprar ${(selectedCoins * 1000).toLocaleString('pt-BR')} FC Coins.`
+    `Opa cheguei pelo site, quero comprar ${(selectedCoins * 1000).toLocaleString('pt-BR')} FC Coins${couponApplied ? ' - CUPOM: BLACK10' : ''}.`
   );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -110,9 +123,9 @@ function App() {
   return (
     <div className="min-h-screen bg-black">
       <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
-        <div className="mb-6 bg-brand-green rounded-lg py-2 px-4">
-          <p className="text-center text-sm sm:text-base font-semibold text-black tracking-wide">
-            O MAIS RÁPIDO E SEGURO DO BRASIL
+        <div className="mb-6 bg-gradient-to-r from-red-600 to-red-700 rounded-lg py-2 px-4 animate-pulse border-2 border-red-500">
+          <p className="text-center text-sm sm:text-base font-black text-white tracking-wide">
+            🔥 USE O CUPOM: BLACK10 PRA SUA PRIMEIRA COMPRA 🔥
           </p>
         </div>
 
@@ -171,12 +184,12 @@ function App() {
                   🔥 PREÇO DE BLACK! 🔥
                 </p>
                 <p className="text-xs sm:text-sm text-yellow-400 text-center relative z-10">
-                  <span className="font-bold">Cotação:</span> 100.000 moedas = R$ {coinPrice.toFixed(2)}
+                  <span className="font-bold">Cotação:</span> 100.000 moedas = R$ 42,90
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 rounded-xl p-4 sm:p-6 mb-6 border border-gray-700">
+            <div className="bg-gray-800/50 rounded-xl p-4 sm:p-6 mb-4 border border-gray-700">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <div className="relative w-10 h-10">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full"></div>
@@ -264,6 +277,38 @@ function App() {
               </div>
             </div>
 
+            <div className={`rounded-xl p-4 mb-4 border-2 transition-all ${couponApplied ? 'bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-green-500/50' : 'bg-gradient-to-r from-red-600/20 to-orange-600/20 border-red-500/50'}`}>
+              <div className="flex items-center gap-3">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Tem um cupom? Digite aqui..."
+                    value={couponCode}
+                    onChange={(e) => {
+                      setCouponCode(e.target.value);
+                      setCouponError('');
+                    }}
+                    disabled={couponApplied}
+                    className="w-full bg-gray-900/80 border-2 border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                </div>
+                <button
+                  onClick={applyCoupon}
+                  disabled={couponApplied || !couponCode}
+                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold transition-all hover:scale-105 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {couponApplied ? '✓ Aplicado' : 'Aplicar'}
+                </button>
+              </div>
+              {couponApplied ? (
+                <p className="text-xs text-green-400 mt-2 text-center font-semibold">✓ Cupom BLACK10 aplicado com sucesso! Seu vendedor saberá que você tem desconto.</p>
+              ) : couponError ? (
+                <p className="text-xs text-red-500 mt-2 text-center font-semibold">{couponError}</p>
+              ) : (
+                <p className="text-xs text-red-400 mt-2 text-center font-semibold animate-pulse">⏰ Cupom BLACK10 válido apenas HOJE para primeira compra!</p>
+              )}
+            </div>
+
             <div className="bg-gradient-to-r from-yellow-600 to-amber-600 rounded-xl p-4 sm:p-5 text-center shadow-lg shadow-yellow-600/50 hover:shadow-xl hover:shadow-yellow-600/60 transition-all duration-300 hover:scale-[1.02]">
               <div className="mb-3">
                 <div className="flex items-center justify-center gap-2 mb-1">
@@ -312,7 +357,7 @@ function App() {
                   🔥 PREÇO DE BLACK! 🔥
                 </p>
                 <p className="text-xs sm:text-sm text-yellow-400 text-center relative z-10">
-                  <span className="font-bold">Cotação:</span> 100.000 moedas = R$ {coinPrice.toFixed(2)}
+                  <span className="font-bold">Cotação:</span> 100.000 moedas = R$ 42,90
                 </p>
               </div>
             </div>
