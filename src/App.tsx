@@ -55,7 +55,18 @@ function App() {
 
 
   const calculatePrice = (coins: number) => {
-    return ((coins / 100000) * coinPrice).toFixed(2);
+    const basePrice = (coins / 100000) * coinPrice;
+    return basePrice.toFixed(2);
+  };
+
+  const calculateDiscountedPrice = (coins: number) => {
+    const basePrice = (coins / 100000) * coinPrice;
+    const discountedPrice = basePrice * 0.9;
+    return discountedPrice.toFixed(2);
+  };
+
+  const getFinalPrice = (coins: number) => {
+    return couponApplied ? calculateDiscountedPrice(coins) : calculatePrice(coins);
   };
 
   const nextSlide = () => {
@@ -315,10 +326,16 @@ function App() {
                   <span className="text-gray-900 line-through text-lg font-bold">R$ {((selectedCoins / 100) * oldPrice).toFixed(2)}</span>
                   <span className="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold hover:scale-110 transition-transform duration-200 cursor-default">-{Math.round(((oldPrice - coinPrice) / oldPrice) * 100)}%</span>
                 </div>
+                {couponApplied && (
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <span className="text-gray-800 line-through text-2xl font-bold">R$ {((selectedCoins / 100) * coinPrice).toFixed(2)}</span>
+                    <span className="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">-10% CUPOM</span>
+                  </div>
+                )}
                 <div className="text-4xl sm:text-5xl font-black text-black mb-1">
-                  R$ {((selectedCoins / 100) * coinPrice).toFixed(2)}
+                  R$ {getFinalPrice(selectedCoins * 1000)}
                 </div>
-                <p className="text-gray-900 text-xs">Preço promocional de Black Friday</p>
+                <p className="text-gray-900 text-xs">{couponApplied ? 'Preço com cupom BLACK10 aplicado!' : 'Preço promocional de Black Friday'}</p>
               </div>
               <a
                 href={whatsappLink}
@@ -366,30 +383,30 @@ function App() {
               <div className="bg-gradient-to-br from-gray-900/80 to-black/90 rounded-xl p-2 sm:p-4 border-2 border-purple-400/30 hover:border-cyan-400/60 transition-all hover:shadow-lg hover:shadow-cyan-500/20 group">
                 <div className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-2 sm:mb-3 flex items-center justify-center border border-gray-700 group-hover:border-cyan-500/50 transition-all overflow-hidden">
                   <img
-                    src="/Fundo de 176 Removido.png"
-                    alt="Hero - Córdoba, Hamsik ou Abedi Pelé"
+                    src="/reiten.png"
+                    alt="Reiten"
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <div className="mb-2 sm:mb-3">
-                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Hero - Córdoba, Hamsik ou Abedi Pelé</h3>
+                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Reiten</h3>
                   <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
                       </div>
-                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">279.000</p>
+                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">115.000</p>
                     </div>
-                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(279000)}</p>
+                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {getFinalPrice(115000)}</p>
                   </div>
                 </div>
 
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Hero - Córdoba, Hamsik ou Abedi Pelé')}`}
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Opa cheguei pelo site, quero farmar o DME Reiten${couponApplied ? ' (Cupom BLACK10 aplicado)' : ''}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => handleWhatsAppClick('dme-hero')}
+                  onClick={() => handleWhatsAppClick('dme-reiten')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -400,30 +417,30 @@ function App() {
               <div className="bg-gradient-to-br from-gray-900/80 to-black/90 rounded-xl p-2 sm:p-4 border-2 border-purple-400/30 hover:border-cyan-400/60 transition-all hover:shadow-lg hover:shadow-cyan-500/20 group">
                 <div className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-2 sm:mb-3 flex items-center justify-center border border-gray-700 group-hover:border-cyan-500/50 transition-all overflow-hidden">
                   <img
-                    src="/mbappe.png"
-                    alt="Kylian Mbappé"
+                    src="/pacho.png"
+                    alt="Pacho"
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <div className="mb-2 sm:mb-3">
-                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Kylian Mbappé</h3>
+                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Pacho</h3>
                   <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
                       </div>
-                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">3.700.000</p>
+                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">196.000</p>
                     </div>
-                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(3700000)}</p>
+                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {getFinalPrice(196000)}</p>
                   </div>
                 </div>
 
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Kylian Mbappé')}`}
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Opa cheguei pelo site, quero farmar o DME Pacho${couponApplied ? ' (Cupom BLACK10 aplicado)' : ''}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => handleWhatsAppClick('dme-mbappe')}
+                  onClick={() => handleWhatsAppClick('dme-pacho')}
                   className="w-full flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white px-2 py-1.5 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all hover:scale-105 shadow-lg"
                 >
                   <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -434,27 +451,27 @@ function App() {
               <div className="bg-gradient-to-br from-gray-900/80 to-black/90 rounded-xl p-2 sm:p-4 border-2 border-purple-400/30 hover:border-cyan-400/60 transition-all hover:shadow-lg hover:shadow-cyan-500/20 group">
                 <div className="aspect-[3/4] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-2 sm:mb-3 flex items-center justify-center border border-gray-700 group-hover:border-cyan-500/50 transition-all overflow-hidden">
                   <img
-                    src="/Fundo de 163 Removido.png"
-                    alt="Melhoria Ídolo Max.89"
+                    src="/dmeidolosemover.png"
+                    alt="DME Ídolo"
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <div className="mb-2 sm:mb-3">
-                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">Melhoria Ídolo Max.89</h3>
+                  <h3 className="text-white font-bold text-center mb-1 sm:mb-2 text-xs sm:text-base">DME Ídolo</h3>
                   <div className="text-center mb-4">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center border-2 border-yellow-300 shadow-lg shadow-yellow-500/50">
                         <span className="text-[8px] sm:text-[10px] font-bold text-yellow-900">FC</span>
                       </div>
-                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">214.000</p>
+                      <p className="text-yellow-400 font-semibold text-xs sm:text-sm">230.000</p>
                     </div>
-                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {calculatePrice(214000)}</p>
+                    <p className="text-green-400 font-bold text-sm sm:text-lg">R$ {getFinalPrice(230000)}</p>
                   </div>
                 </div>
 
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Opa cheguei pelo site, quero farmar o DME Melhoria Ídolo Max.89')}`}
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Opa cheguei pelo site, quero farmar o DME Ídolo${couponApplied ? ' (Cupom BLACK10 aplicado)' : ''}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleWhatsAppClick('dme-idolo')}
