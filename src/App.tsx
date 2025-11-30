@@ -1,4 +1,4 @@
-import { MessageCircle, Shield, Clock, Trophy, ChevronRight, ChevronLeft, Minus, Plus } from 'lucide-react';
+import { MessageCircle, Shield, Clock, Trophy, Minus, Plus, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { PurchaseNotification } from './components/PurchaseNotification';
 import { supabase } from './lib/supabase';
@@ -16,7 +16,7 @@ function App() {
   const maxCoins = 3000;
   const step = 50;
 
-  const quickSelectValues = [50, 100, 500, 700, 1000, 2000, 3000];
+  const quickSelectValues = [100, 500, 1000, 2000, 3000];
 
   const testimonials = [
     '/WhatsApp Image 2025-11-19 at 18.34.37.jpeg',
@@ -32,6 +32,7 @@ function App() {
 
     return () => clearInterval(interval);
   }, []);
+
 
   useEffect(() => {
     const fetchCoinPrice = async () => {
@@ -76,6 +77,7 @@ function App() {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
+
 
   const whatsappNumber = '5553999286468';
 
@@ -159,201 +161,128 @@ function App() {
               allowFullScreen
             ></iframe>
           </div>
-
-          <div className="p-4 border-t border-brand-green/30 bg-black/30">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => handleWhatsAppClick('video')}
-              className="flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-light text-black px-4 py-2 rounded-lg text-sm font-bold transition-all"
-            >
-              <MessageCircle className="w-4 h-4" />
-              Comprar Agora
-            </a>
-          </div>
         </div>
 
         <div className="bg-gradient-to-br from-gray-900 to-black backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-yellow-600/30 mb-8">
           <div className="p-6 sm:p-8">
-            <div className="flex flex-col items-center mb-8">
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 via-amber-500 to-yellow-600 rounded-full animate-pulse shadow-2xl shadow-yellow-600/50"></div>
-                <div className="absolute inset-2 bg-gradient-to-br from-yellow-700 via-amber-800 to-yellow-900 rounded-full flex items-center justify-center border-4 border-yellow-500/30">
-                  <span className="text-2xl sm:text-4xl font-black text-yellow-300 drop-shadow-lg">FC</span>
-                </div>
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <img src="/large_coin_boost.png" alt="FC Coin" className="w-12 h-12 sm:w-16 sm:h-16" />
+                <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                  <span className="text-yellow-500">FC Coins</span>
+                </h2>
+                <img src="/large_coin_boost.png" alt="FC Coin" className="w-12 h-12 sm:w-16 sm:h-16" />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-3">
-                <span className="text-yellow-500">FC Coins</span>
-              </h2>
-              <p className="text-base sm:text-lg text-gray-300 text-center mb-2">
-                Compre FC Coins de forma rápida e segura
-              </p>
-              <div className="relative bg-gradient-to-r from-red-600/30 to-red-700/30 border-2 border-red-500 rounded-lg px-4 py-3 mt-3 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/10 to-transparent animate-pulse"></div>
-                <p className="text-base sm:text-lg font-black text-red-400 text-center mb-1 relative z-10 animate-pulse">
-                  🔥 PREÇO DE BLACK! 🔥
-                </p>
-                <p className="text-xs sm:text-sm text-yellow-400 text-center relative z-10">
-                  <span className="font-bold">Cotação:</span> 100.000 moedas = R$ 42,90
-                </p>
-              </div>
+              <p className="text-sm text-gray-400">100.000 moedas = R$ 42,90</p>
             </div>
 
-            <div className="bg-gray-800/50 rounded-xl p-4 sm:p-6 mb-4 border border-gray-700">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="relative w-10 h-10">
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full"></div>
-                  <div className="absolute inset-1 bg-gradient-to-br from-yellow-700 to-yellow-900 rounded-full flex items-center justify-center">
-                    <span className="text-xs font-black text-yellow-300">FC</span>
-                  </div>
-                </div>
-                <div className="text-3xl sm:text-4xl font-black text-white">
-                  {(selectedCoins * 1000).toLocaleString('pt-BR')}
-                </div>
-              </div>
-
-              <div className="relative mb-4">
-                <input
-                  type="range"
-                  min={minCoins}
-                  max={maxCoins}
-                  step={step}
-                  value={selectedCoins}
-                  onChange={(e) => setSelectedCoins(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
-                  style={{
-                    background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${((selectedCoins - minCoins) / (maxCoins - minCoins)) * 100}%, #374151 ${((selectedCoins - minCoins) / (maxCoins - minCoins)) * 100}%, #374151 100%)`
-                  }}
-                />
-                <div className="flex justify-between mt-2 text-xs gap-1">
-                  {quickSelectValues.map((value) => (
-                    <button
-                      key={value}
-                      onClick={() => setSelectedCoins(value)}
-                      className={`px-2 py-1 rounded transition-all ${
-                        selectedCoins === value
-                          ? 'bg-blue-600 text-white font-bold'
-                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
-                      }`}
-                    >
-                      {value >= 1000 ? `${value / 1000}KK` : `${value}K`}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-gray-900/80 rounded-xl p-4 mb-4 border border-gray-700">
-                <div className="flex items-center justify-center gap-3">
+            <div className="max-w-2xl mx-auto mb-6">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-3 mb-2">
                   <button
                     onClick={() => setSelectedCoins(Math.max(minCoins, selectedCoins - step))}
-                    className="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-colors"
+                    className="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-all hover:scale-110 active:scale-95"
                   >
-                    <Minus className="w-4 h-4 text-white" />
+                    <Minus className="w-6 h-6 text-yellow-500" />
                   </button>
-                  <div className="text-center">
-                    <div className="text-4xl sm:text-5xl font-black text-white mb-1">
+                  <div>
+                    <div className="text-5xl sm:text-6xl font-black text-yellow-500">
                       {(selectedCoins * 1000).toLocaleString('pt-BR')}
                     </div>
-                    <div className="text-gray-400 text-xs">coins</div>
+                    <p className="text-gray-400 text-sm">moedas</p>
                   </div>
                   <button
                     onClick={() => setSelectedCoins(Math.min(maxCoins, selectedCoins + step))}
-                    className="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-colors"
+                    className="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-all hover:scale-110 active:scale-95"
                   >
-                    <Plus className="w-4 h-4 text-white" />
+                    <Plus className="w-6 h-6 text-yellow-500" />
                   </button>
                 </div>
               </div>
 
-              <div className="bg-gray-900/80 rounded-xl p-4 border border-gray-700">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="relative w-10 h-10">
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full"></div>
-                      <div className="absolute inset-1 bg-gradient-to-br from-yellow-700 to-yellow-900 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-black text-yellow-300">FC</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-white font-bold text-sm sm:text-base">COINS A RECEBER</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl sm:text-3xl font-black text-yellow-500">
-                      {(selectedCoins * 1000).toLocaleString('pt-BR')}
-                    </div>
-                  </div>
-                </div>
+              <input
+                type="range"
+                min={minCoins}
+                max={maxCoins}
+                step={step}
+                value={selectedCoins}
+                onChange={(e) => setSelectedCoins(Number(e.target.value))}
+                className="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer slider mb-4"
+                style={{
+                  background: `linear-gradient(to right, #eab308 0%, #eab308 ${((selectedCoins - minCoins) / (maxCoins - minCoins)) * 100}%, #374151 ${((selectedCoins - minCoins) / (maxCoins - minCoins)) * 100}%, #374151 100%)`
+                }}
+              />
+
+              <div className="flex justify-center flex-wrap gap-2 mb-6">
+                {quickSelectValues.map((value) => (
+                  <button
+                    key={value}
+                    onClick={() => setSelectedCoins(value)}
+                    className={`px-4 py-2 rounded-lg transition-all font-semibold ${
+                      selectedCoins === value
+                        ? 'bg-yellow-500 text-black scale-105'
+                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    }`}
+                  >
+                    {value >= 1000 ? `${value / 1000}M` : `${value}K`}
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className={`rounded-xl p-4 mb-4 border-2 transition-all ${couponApplied ? 'bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-green-500/50' : 'bg-gradient-to-r from-red-600/20 to-orange-600/20 border-red-500/50'}`}>
-              <div className="flex items-center gap-3">
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    placeholder="Tem um cupom? Digite aqui..."
-                    value={couponCode}
-                    onChange={(e) => {
-                      setCouponCode(e.target.value);
-                      setCouponError('');
-                    }}
-                    disabled={couponApplied}
-                    className="w-full bg-gray-900/80 border-2 border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  />
-                </div>
+            <div className="max-w-md mx-auto mb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <input
+                  type="text"
+                  placeholder="Cupom BLACK10"
+                  value={couponCode}
+                  onChange={(e) => {
+                    setCouponCode(e.target.value);
+                    setCouponError('');
+                  }}
+                  disabled={couponApplied}
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors disabled:opacity-50"
+                />
                 <button
                   onClick={applyCoupon}
                   disabled={couponApplied || !couponCode}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold transition-all hover:scale-105 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {couponApplied ? '✓ Aplicado' : 'Aplicar'}
+                  {couponApplied ? '✓' : 'Aplicar'}
                 </button>
               </div>
-              {couponApplied ? (
-                <p className="text-xs text-green-400 mt-2 text-center font-semibold">✓ Cupom BLACK10 aplicado com sucesso! Seu vendedor saberá que você tem desconto.</p>
-              ) : couponError ? (
-                <p className="text-xs text-red-500 mt-2 text-center font-semibold">{couponError}</p>
-              ) : (
-                <p className="text-xs text-red-400 mt-2 text-center font-semibold animate-pulse">⏰ Cupom BLACK10 válido apenas HOJE para primeira compra!</p>
+              {couponApplied && (
+                <p className="text-xs text-green-400 text-center">✓ Desconto de 10% aplicado</p>
+              )}
+              {couponError && (
+                <p className="text-xs text-red-400 text-center">{couponError}</p>
               )}
             </div>
 
-            <div className="bg-gradient-to-r from-yellow-600 to-amber-600 rounded-xl p-4 sm:p-5 text-center shadow-lg shadow-yellow-600/50 hover:shadow-xl hover:shadow-yellow-600/60 transition-all duration-300 hover:scale-[1.02]">
-              <div className="mb-3">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <span className="text-gray-900 line-through text-lg font-bold">R$ {((selectedCoins / 100) * oldPrice).toFixed(2)}</span>
-                  <span className="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold hover:scale-110 transition-transform duration-200 cursor-default">-{Math.round(((oldPrice - coinPrice) / oldPrice) * 100)}%</span>
+            <div className="max-w-md mx-auto text-center">
+              {couponApplied && (
+                <div className="mb-2 flex items-center justify-center gap-2">
+                  <span className="text-red-500 line-through text-xl font-semibold">R$ {calculatePrice(selectedCoins * 1000)}</span>
+                  <span className="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold">10% OFF</span>
                 </div>
-                {couponApplied && (
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <span className="text-gray-800 line-through text-2xl font-bold">R$ {((selectedCoins / 100) * coinPrice).toFixed(2)}</span>
-                    <span className="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">-10% CUPOM</span>
-                  </div>
-                )}
-                <div className="text-4xl sm:text-5xl font-black text-black mb-1">
-                  R$ {getFinalPrice(selectedCoins * 1000)}
-                </div>
-                <p className="text-gray-900 text-xs">{couponApplied ? 'Preço com cupom BLACK10 aplicado!' : 'Preço promocional de Black Friday'}</p>
+              )}
+              <div className={`text-5xl sm:text-6xl font-black mb-4 transition-all duration-500 ${
+                couponApplied
+                  ? 'text-brand-green animate-pulse drop-shadow-[0_0_20px_rgba(34,197,94,0.8)]'
+                  : 'text-yellow-500'
+              }`}>
+                R$ {getFinalPrice(selectedCoins * 1000)}
               </div>
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleWhatsAppClick('fc-coins')}
-                className="inline-flex items-center gap-3 bg-black text-yellow-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-900 transition-all hover:scale-105 shadow-xl border border-yellow-500/50 hover:border-yellow-500"
+                className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-black px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105"
               >
-                <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />
-                Quero essa quantia
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                <MessageCircle className="w-5 h-5" />
+                Comprar Agora
               </a>
-              <div className="mt-3 flex items-center justify-center gap-1">
-                <span className="text-green-500 text-xs animate-pulse">*</span>
-                <p className="text-xs font-semibold text-green-500 animate-pulse">
-                  Promoção válida somente hoje
-                </p>
-              </div>
             </div>
           </div>
         </div>
